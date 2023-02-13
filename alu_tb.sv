@@ -9,29 +9,31 @@
  `timescale 1ns/1ps
  
 module alu_tb;
-	logic [11:0] A, B;
-	logic [1:0] op;						// op=00 is ADD, op=10 is MUL, op=01 is SUB, op=11 is DIV
-	logic [11:0] res;
+	logic [19:0] A, B;
+	logic [1:0] op;	  // op=00 is ADD, op=10 is MUL, op=01 is SUB, op=11 is DIV
+	logic [19:0] res;
 
 	alu alu1 (.A(A), .B(B), .op(op), .res(res));
 
 	initial
 	begin
-		A <= 12;		// Non-blocking
-		B_tb <= 3;
-		op <= 0;
+		A <= 123;		// Non-blocking
+		B <= 321;
+		op <= 2'b00;
+		#10
+		A <= 28;		// Non-blocking
+		B <= 6;
+		op <= 2'b01;
+		#10
+		A <= 36;		// Non-blocking
+		B <= 17;
+		op <= 2'b10;
 		#10
 		A <= 12;		// Non-blocking
-		B_tb <= 3;
-		op <= 1;
-		#10
-		A <= -12;		// Non-blocking
-		B_tb <= 3;
-		op <= 0;
-		#10
-		A <= -12;		// Non-blocking
-		B_tb <= 3;
-		op <= 1;
+		B <= 4;
+		op <= 2'b11;
 	end
 	
 endmodule
+
+
