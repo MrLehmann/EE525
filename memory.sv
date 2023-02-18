@@ -18,8 +18,10 @@ module Memory(dataIn, memClr, memSet, memLoc, memDisplay, dataA, dataB, dataOp, 
 	input [15:0] result;
 	output [15:0] dataOut;
 	
-	logic [15:0] data1, data2, data_out;
-	logic [3:0] op;
+	logic [15:0] data1 = 0;
+	logic [15:0] data2 = 0;
+	logic [15:0] data_out = 0;
+	logic [3:0] op = 0;
 	
 	always_latch
 	begin
@@ -27,49 +29,19 @@ module Memory(dataIn, memClr, memSet, memLoc, memDisplay, dataA, dataB, dataOp, 
 		if (memSet == 1 && memClr == 0)
 			begin
 				if (memLoc == 2'b00)
-					begin
-						data1 = data1 * 10 + dataIn;
-						//data2 = data2;
-						//op = op;
-						//data_out = data_out;
-					end
+					data1 = data1 * 10 + dataIn;
 				else if (memLoc == 2'b01)
-					begin
-						data2 = data2 * 10 + dataIn;
-						//data1 = data1;
-						//op = op;
-						//data_out = data_out;
-					end
+					data2 = data2 * 10 + dataIn;
 				else
-					begin
-						op = dataIn;
-						//data1 = data1;
-						//data2 = data2;
-						//data_out = data_out;
-					end
+					op = dataIn;
 			end
 		
 		if (memDisplay == 2'b00)
-			begin
-				data_out = data1;
-				//data1 = data1;
-				//data2 = data2;
-				//op = op;
-			end
+			data_out = data1;
 		else if (memDisplay == 2'b01)
-			begin
-				data_out = data2;
-				//data1 = data1;
-				//data2 = data2;
-				//op = op;
-			end
+			data_out = data2;
 		else
-			begin
-				data_out = result;
-				//data1 = data1;
-				//data2 = data2;
-				//op = op;
-			end
+			data_out = result;
 			
 		// Check if memory has been cleared
 		if (memClr == 1 && memSet == 0)
@@ -92,4 +64,5 @@ module Memory(dataIn, memClr, memSet, memLoc, memDisplay, dataA, dataB, dataOp, 
 	assign dataB = data2;
 	assign dataOut = data_out;
 	assign dataOp = op;
+	
 endmodule
